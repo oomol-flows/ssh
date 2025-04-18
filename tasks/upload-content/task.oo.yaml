@@ -1,0 +1,75 @@
+executor:
+  name: nodejs
+  options:
+    entry: main.ts
+inputs_def:
+  - handle: credential
+    json_schema:
+      $schema: http://json-schema.org/draft-07/schema#
+      type: object
+      additionalProperties: false
+      properties:
+        host:
+          type: string
+          minLength: 1
+        username:
+          type: string
+          minLength: 1
+        port:
+          type: integer
+          ui:options:
+            step: 1
+          minimum: 1
+          maximum: 65536
+        authType:
+          enum:
+            - password
+            - privateKey
+            - publicKey
+          ui:options:
+            labels:
+              - Password
+              - Private Key
+              - Public Key
+        authValue:
+          contentMediaType: oomol/secret
+          type: string
+        passphrase:
+          contentMediaType: oomol/secret
+          type: string
+    value:
+      host: ""
+      username: ""
+      port: 22
+      authType: password
+    nullable: false
+  - handle: fileContent
+    json_schema:
+      type: string
+      ui:widget: text
+    value: ""
+  - handle: remoteFilepath
+    json_schema:
+      type: string
+    value: ""
+  - handle: override
+    json_schema:
+      type: boolean
+    value: true
+  - handle: chmod
+    json_schema:
+      type: integer
+      minimum: 111
+      maximum: 777
+    value: 644
+    nullable: false
+outputs_def:
+  - handle: fileSize
+    json_schema:
+      type: number
+  - handle: isOverride
+    json_schema:
+      type: boolean
+title: SSH Upload Content
+ui:
+  default_width: 484.7140667002688

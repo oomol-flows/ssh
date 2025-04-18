@@ -1,0 +1,67 @@
+executor:
+  name: nodejs
+  options:
+    entry: main.ts
+inputs_def:
+  - handle: credential
+    json_schema:
+      $schema: http://json-schema.org/draft-07/schema#
+      type: object
+      additionalProperties: false
+      properties:
+        host:
+          type: string
+          minLength: 1
+        username:
+          type: string
+          minLength: 1
+        port:
+          type: integer
+          ui:options:
+            step: 1
+          minimum: 1
+          maximum: 65536
+        authType:
+          enum:
+            - password
+            - privateKey
+            - publicKey
+          ui:options:
+            labels:
+              - Password
+              - Private Key
+              - Public Key
+        authValue:
+          contentMediaType: oomol/secret
+          type: string
+        passphrase:
+          contentMediaType: oomol/secret
+          type: string
+    value:
+      host: ""
+      username: ""
+      port: 22
+      authType: password
+    nullable: false
+  - handle: remoteFilepath
+    json_schema:
+      type: string
+    value: ""
+  - handle: saveFilepath
+    json_schema:
+      type: string
+      ui:widget: save
+  - handle: override
+    json_schema:
+      type: boolean
+    value: true
+outputs_def:
+  - handle: isOverride
+    json_schema:
+      type: boolean
+  - handle: saveFilepath
+    json_schema:
+      type: string
+title: SSH Download File
+ui:
+  default_width: 484.7140667002688
