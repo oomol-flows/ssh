@@ -1,4 +1,4 @@
-version: 1.0.1
+version: 1.0.2
 scripts:
   # Script executed when the container is first loaded
   # eg: bootstrap: pip install pandas
@@ -12,4 +12,5 @@ name: ssh
 displayName: SSH
 repository: https://github.com/oomol-flows/ssh
 description: Exec Command, Upload amd Download in SSH
-releaseNotes: add LICENSE
+releaseNotes: update release type
+releaseType: package
